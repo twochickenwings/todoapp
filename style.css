@@ -1,13 +1,18 @@
 body {
     margin: 0;
-    background-image: url(assets/background.jpg);
+    background-image: url(./assets/note.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    padding: 20px;
+    font-family: "Nanum Myeongjo", serif;
+    
 }
 .container{
-    background-color: aliceblue;
-    min-height: 80vh; 
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    padding: 10px;
+    background-color: rgba(238, 237, 235, 0.5); /* #EEEDEB의 RGB 값과 알파 값 조절 */
+    min-height: 80vh;
+    min-width: 80vh;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 .task-area{
     border: 1px solid lightgrey;
@@ -22,7 +27,7 @@ body {
 }
 #underline {
     height: 4px;
-    background-color: brown;
+    background-color: #0D9276;
     position: absolute;
     width: 60px;
     left: 0px;
@@ -32,8 +37,49 @@ body {
 .task {
     display: flex;
     justify-content: space-between;
-    padding: 1em;
+    height: 50px;
+    margin: 0;
 }
 .task-done {
     text-decoration: line-through;
+    background-color: #C9D7DD;
+    flex-grow: 1;
+    padding-block: 1em;
+    display: block;
+}
+.check{
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #8EC3B0;
+}
+.delete{
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #8EC3B0;
+}
+.check1{
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #8EC3B0;  
+}
+.delete1{
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #8EC3B0;
+}
+#add-button {
+    background-color: #8EC3B0;
+    font-family: "Nanum Myeongjo", serif;
+    font-weight: bold;
+    border: grey;
+    height: 25px;
+    border-radius: 25%;
+
+}
+.task-tabs div{
+    cursor: pointer;
 }
