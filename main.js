@@ -12,50 +12,113 @@ delete버튼을 누르면 할일이 삭제 된다.
 전체 탭을 누르면 다시 전체아이템으로 돌아옴.
  */
 
-function getClock(){
-    const time = new Date();
-    let months = String(time.getMonth() +1).padStart(2,"0");
-    let dates = String(time.getDate()).padStart(2,"0");
-    let nowday =""; // 모두 let으로 쓰는 것 잊지말기~
-    switch(time.getDay()){
-        case 0:
-            nowday="일요일";
-            break;
-        case 1:
-            nowday="월요일";
-            break;            
-        case 2:
-            nowday="화요일";
-            break;
-        case 3:
-            nowday="수요일";
-            break;
-        case 4:
-            nowday="목요일";
-            break;            
-        case 5:
-            nowday="금요일";
-            break;
-        case 6:
-            nowday="토요일";
-            break;
-        default :
-            nowDay = "";
-            break;
-    };
-    day.innerText = `${months}/${dates} (${nowday})`;
+let date = new Date();
 
+const renderCalendar = () => {
+const viewYear = date.getFullYear();
+const viewMonth = date.getMonth();
+
+document.querySelector('.year-month').textContent = `${viewYear}년 ${viewMonth + 1}월`;
+
+const prevLast = new Date(viewYear, viewMonth, 0);
+const thisLast = new Date(viewYear, viewMonth + 1, 0);
+
+const PLDate = prevLast.getDate();
+const PLDay = prevLast.getDay();
+
+const TLDate = thisLast.getDate();
+const TLDay = thisLast.getDay();
+
+const prevDates = [];
+const thisDates = [...Array(TLDate + 1).keys()].slice(1);
+const nextDates = [];
+
+if(PLDay !== 6) {
+for (let i = 0; i < PLDay + 1; i++) {
+    prevDates.unshift(PLDate - i);
 }
-getClock();
-setInterval(getClock, 1000);
+}
 
-    
+for (let i = 1; i < 7 - TLDay; i++) {
+nextDates.push(i);
+}
+
+const dates = prevDates.concat(thisDates, nextDates);
+const firstDateIndex = dates.indexOf(1);
+const lastDateIndex = dates.lastIndexOf(TLDate);
+
+
+dates.forEach((date, i)=> {
+    const condition = i >= firstDateIndex && i < lastDateIndex + 1
+                      ? 'this'
+                      : 'other';
+dates[i] =`<div class="date"><span class=${condition}>${date}</span></div>`;
+});
+
+document.querySelector('.dates').innerHTML = dates.join('');
+
+
+const today = new Date();
+if (viewMonth === today.getMonth() && viewYear === today.getFullYear()){
+    for (let date of document.querySelectorAll('.this')){
+        if (+date.innerText === today.getDate()) {
+        date.classList.add('today');
+        break;
+            }
+         }
+     }
+};
+renderCalendar();
+
+const prevMonth = () => {
+    date.setMonth(date.getMonth() - 1);
+    renderCalendar();
+};
+
+const nextMonth = () => {
+    date.setMonth(date.getMonth() + 1);
+    renderCalendar();
+};
+
+const goToday = () => {
+    date = new Date();
+    renderCalendar();
+};
+
+
 let taskInput = document.getElementById("task-input");
 let addButton = document.getElementById("add-button");
 let tabs = document.querySelectorAll(".task-tabs div");
 let taskList = [];
 let mode ='all';
 let filterList = [];
+let underLine = document.getElementById("underline");
+let horizontalMenus = document.querySelectorAll("task-tabs");
+
+tabs.forEach(menu => menu.addEventListener("click", (e) => horizontalIndicator(e)));
+
+function horizontalIndicator(e) {
+    underLine.style.left = e.currentTarget.offsetLeft + "px";
+    underLine.style.width = e.currentTarget.offsetWidth + "px";
+    underLine.style.top = 
+    e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
+}
+
+function enterKey(event) {
+    if (event.keyCode === 13) { // Enter 키의 keyCode는 13입니다.
+        addTask(); // addTask 함수를 호출하여 아이템을 추가합니다.
+    }
+}
+
+function openPopup() {
+    document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+
 
 addButton.addEventListener("click",addTask)
 
@@ -66,15 +129,30 @@ for(let i=1; i<tabs.length; i++){
 
 }
 console.log(tabs);
+
 function addTask() {
-    let task = {
-        id:randomIDGenerate(),
-        taskContent: taskInput.value,
-        isComplete: false
-    };
-    taskList.push(task);
-    console.log(taskList);
-    render();
+    let taskContent = taskInput.value.trim();
+    if (taskContent !== '') {
+        let task = {
+            id: randomIDGenerate(),
+            taskContent: taskContent,
+            isComplete: false
+        };
+        taskList.push(task);
+        taskInput.value = '';
+        render();
+        const todayDate = new Date();
+        const currentDate = todayDate.getDate();
+        const datesElements = document.querySelectorAll('.date');
+        datesElements.forEach(Element => {if (element.querySelector('span').innerText == currentDate) {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            element.appendChild(dot);
+        }
+    });
+    } else {
+        alert("할일을 입력해 주세요."); // 입력이 없는 경우 alert 창 띄우기
+    }
 }
 
 function render() {
@@ -121,15 +199,20 @@ function toggleComplete(id){
     render();
     console.log(taskList);
 }
+
 function deleteTask(id){
-    for(let i=0;i<taskList.length;i++){
-        if(taskList[i].id == id){
-            taskList.splice(i,1)
+    for(let i = 0; i < taskList.length; i++){
+        if(taskList[i].id === id){
+            taskList.splice(i, 1);
             break;
         }
     }
+    // 삭제된 아이템을 filterList에서도 제거
+    filterList = filterList.filter(item => item.id !== id);
     render();
 }
+
+
 
 function filter(event){
     mode = event.target.id;
