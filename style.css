@@ -1,3 +1,15 @@
+@media only screen and (max-width: 600px) {
+    .calendar {
+        width: 90%; /* 스마트폰 화면에 맞게 조정 */
+        margin: auto; /* 가운데 정렬 */
+    }
+
+    .container {
+        width: 90%; /* 스마트폰 화면에 맞게 조정 */
+        margin: auto; /* 가운데 정렬 */
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -79,6 +91,7 @@ body {
     left: 0px;
     top: 52px;
     padding: 0px;
+    transition: 0.5s;
 }
 .task {
     display: flex;
