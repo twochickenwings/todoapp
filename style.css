@@ -1,11 +1,3 @@
-@media (max-width: 738px) {
-    .calendar,.container {
-        width: 90%; 
-        display: flex;
-        justify-content: block;
-    }
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +12,6 @@ body {
     padding: 20px;
     display: flex;
     justify-content: center;
-
 }
 
 .calendar {
