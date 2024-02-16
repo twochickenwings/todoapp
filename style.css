@@ -12,16 +12,49 @@ body {
     padding: 20px;
     display: flex;
     justify-content: center;
-    min-height: 100vh;
+}
+
+.calendar {
+    position:relative;
+    width: 600px;
+    margin: 50px;
+    background-color: rgba(238, 237, 235, 0.5); /* #EEEDEB의 RGB 값과 알파 값 조절 */
+    padding: 30px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    min-height: 80vh;
+    min-width: 80vh;
+    border-radius: 10px;
 }
 
 .container{
     padding: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 50px;
+    justify-content: column;
     background-color: rgba(238, 237, 235, 0.5); /* #EEEDEB의 RGB 값과 알파 값 조절 */
-    min-height: 80vh;
-    min-width: 80vh;
+    height: 600px;
+    width: 500px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 10px;
+
 }
+
+.title {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.input-area {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#task-input {
+    width: 350px;
+    height: 30px;
+}
+
 .task-area{
     border: 1px solid lightgrey;
 }
@@ -33,6 +66,11 @@ body {
 .task-tabs div {
     padding:1em;
 }
+
+.task-board {
+    padding-block: 1em;
+}
+
 #underline {
     height: 4px;
     background-color: #0D9276;
@@ -45,15 +83,12 @@ body {
 .task {
     display: flex;
     justify-content: space-between;
-    height: 50px;
-    margin: 0;
+    padding: 1em;
 }
 .task-done {
     text-decoration: line-through;
     background-color: #C9D7DD;
     flex-grow: 1;
-    padding-block: 1em;
-    display: block;
 }
 .check{
     background: none;
@@ -84,16 +119,13 @@ body {
     font-family: "Nanum Myeongjo", serif;
     font-weight: bold;
     border: grey;
-    height: 25px;
+    height: 30px;
+    width: 40px;
     border-radius: 25%;
 
 }
 .task-tabs div{
     cursor: pointer;
-}
-.calendar {
-    width: 600px;
-    margin: 50px;
 }
 
 .header {
@@ -104,6 +136,7 @@ body {
 
 .year-month {
     font-size: 35px;
+    font-weight: bold;
 }
 
 .nav {
@@ -131,7 +164,7 @@ body {
 .days {
     display: flex;
     margin: 25px 0 10px;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
 
 }

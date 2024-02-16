@@ -169,7 +169,7 @@ function render() {
     let resultHtml = "";
     for (let i = 0; i < list.length; i++){
         if(list[i].isComplete == true) {
-            resultHtml+=`<div class="task">
+            resultHtml+=`<div class="task task-done">
         <div class ="task-done">${list[i].taskContent}</div>
         <div>
             <button class="check1" onClick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-circle-check"></i></button>
@@ -211,9 +211,6 @@ function deleteTask(id){
     filterList = filterList.filter(item => item.id !== id);
     render();
 }
-
-
-
 function filter(event){
     mode = event.target.id;
     filterList = []
