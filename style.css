@@ -1,3 +1,18 @@
+@media (max-width: 390px) {
+    .container-real {
+        display: block;
+    }
+
+    .calendar {
+        width: 300px;
+    }
+
+    .container {
+        width: 250px;
+
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +26,8 @@ body {
     background-color: #B3A398;
     padding: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: block
+    ;
 }
 
 .calendar {
