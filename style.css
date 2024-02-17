@@ -1,6 +1,7 @@
 @media (max-width: 390px) {
     .container-real {
         display: block;
+        justify-content: center;
     }
 
     .calendar {
@@ -26,7 +27,7 @@ body {
     background-color: #B3A398;
     padding: 20px;
     display: flex;
-    justify-content: block
+    justify-content: center
     ;
 }
 
